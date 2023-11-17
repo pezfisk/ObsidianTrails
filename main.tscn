@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://3jjnhrcyu032"]
+
+[ext_resource type="PackedScene" uid="uid://c1nvnd3u2uf1h" path="res://Character/character.tscn" id="1_j1qq6"]
+[ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_eb8g7"]
+[ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="3_itnud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3aiw"]
+size = Vector2(128, 127)
+
+[node name="main" type="Node2D"]
+
+[node name="Character" parent="." instance=ExtResource("1_j1qq6")]
+position = Vector2(156, 159)
+
+[node name="Bullet" parent="." instance=ExtResource("2_eb8g7")]
+position = Vector2(256, 289)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(278, 381)
+scale = Vector2(8.465, 0.275)
+disable_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("3_itnud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_q3aiw")

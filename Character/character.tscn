@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1nvnd3u2uf1h"]
+
+[ext_resource type="Script" path="res://Character/character.gd" id="1_r1i07"]
+[ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_ghuio"]
+[ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="2_ppdm7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fikrf"]
+size = Vector2(100, 100)
+
+[node name="Character" type="CharacterBody2D"]
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_r1i07")
+Bullet = ExtResource("2_ghuio")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ppdm7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fikrf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2(62, 0)
+
+[node name="shootTimerDelay" type="Timer" parent="."]
+one_shot = true
