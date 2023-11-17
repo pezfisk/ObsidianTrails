@@ -8,10 +8,15 @@ extends CharacterBody2D
 
 @export var Bullet : PackedScene
 
-@onready var shootDelay = $shootTimerDelay
+@onready var shootTimer = $shootTimerDelay
 @onready var camera = $Camera2D
 
-var text = 0
+var gunSelection : Array
+var a = 0
+
+func _ready():
+	gunSelection = GunStates.getData()
+	print(gunSelection)
 
 func get_input():
 	var input = Vector2()
@@ -34,19 +39,23 @@ func _physics_process(_delta):
 	else:
 		velocity = velocity.lerp(Vector2(0,0), friction)
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootDelay.is_stopped():
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootTimer.is_stopped():
 		var b = Bullet.instantiate()
 		owner.add_child(b)
 		b.transform = $Muzzle.global_transform
 		b.scale.x = 0.255
 		b.scale.y = 0.045
-		text += 1
-		shootDelay.start(shootDelayS)
+		shootTimer.start(shootDelayS)
 		
 	if Input.is_action_just_pressed("CheckDB"):
-		GunStates.SaveData("Test", "TotalA", text)
-		var a = GunStates.loadData("a", "Ammo")
-		print(a)
+		if a < gunSelection.size() - 1:
+			a += 1
+		else:
+			a = 0
+		var Header = gunSelection[a]
+		print(Header)
+		shootDelayS = GunStates.loadData(Header, "shootDelay")
+		shootTimer.stop()
 		
 	look_at(get_global_mouse_position())
 	

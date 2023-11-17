@@ -3,8 +3,22 @@ extends Node
 # Path to save file 
 var file= "res://GunConfig.cfg"
 
-func SaveData(Header, Adress, Value): 
+func getData():
 	var configFile = ConfigFile.new()
+	
+	# Check if theres a GunConfig file already, so it doesnt get overwritten
+	if (FileAccess.open(file,FileAccess.READ)):
+		configFile.load(file)
+	else:
+		configFile.new()
+		
+	return configFile.get_sections()
+
+func SaveData(Header, Adress, Value): 
+	
+	var configFile = ConfigFile.new()
+	
+	# Check if theres a GunConfig file already, so it doesnt get overwritten
 	if (FileAccess.open(file,FileAccess.READ)):
 		configFile.load(file)
 	else:

@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_ghuio"]
 [ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="2_ppdm7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fikrf"]
-size = Vector2(100, 100)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ec0tn"]
+radius = 55.0091
 
 [node name="Character" type="CharacterBody2D"]
 floor_stop_on_slope = false
@@ -18,13 +18,13 @@ metadata/_edit_group_ = true
 texture = ExtResource("2_ppdm7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_fikrf")
+shape = SubResource("CircleShape2D_ec0tn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 
 [node name="Muzzle" type="Node2D" parent="."]
-position = Vector2(62, 0)
+position = Vector2(79.67, 0)
 
 [node name="shootTimerDelay" type="Timer" parent="."]
 one_shot = true
