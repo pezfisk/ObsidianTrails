@@ -16,5 +16,5 @@ func _on_screen_exited():
 	queue_free()
 
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	queue_free()

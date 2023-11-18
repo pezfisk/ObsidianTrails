@@ -6,8 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm5q4"]
 size = Vector2(128, 128)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" groups=["Bullets"]]
 scale = Vector2(0.255, 0.045)
+input_pickable = false
 script = ExtResource("1_63m5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

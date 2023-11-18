@@ -14,7 +14,7 @@ func getData():
 		
 	return configFile.get_sections()
 
-func SaveData(Header, Adress, Value): 
+func SaveData(Header : String, Adress : String, Value): 
 	
 	var configFile = ConfigFile.new()
 	
@@ -29,8 +29,7 @@ func SaveData(Header, Adress, Value):
 	# Save file 
 	configFile.save(file)
 
-
-func loadData(Header, Adress): 
+func loadData(Header : String, Adress : String): 
 
 	# Initiate ConfigFile  
 
@@ -47,9 +46,43 @@ func loadData(Header, Adress):
 		if (configFile.has_section_key(Header, Adress)): 
 			# Get data value
 			loadedData = configFile.get_value(Header, Adress)
+			if loadedData == null:
+				pass
 			return loadedData
 			
 		else:
 			push_warning("Has no section key (Adress doesn't exist)! - Section Key requested: " + Adress)
 	else:
 		push_warning("Has no section (Header doesn't exist)! - Section requested: " + Header)
+
+func getCurrentGun():
+	var guns = getData()
+	var i = 0
+	while i < guns.size():
+		i += 1
+		if loadData(guns[i-1], "selected"):
+			return [i-1, guns[i-1]]
+
+func selectGun(Header):
+	
+	var configFile = ConfigFile.new()
+	
+	configFile.load(file)
+	
+	if Header != getCurrentGun()[1]:
+		configFile.set_value(Header, "selected", true)
+		configFile.set_value(getCurrentGun()[1], "selected", false)
+		
+	# Save file 
+	configFile.save(file)
+
+func getCurrentGunStats():
+	var currentGun = getCurrentGun()
+	var adressArray = ["shootDelay", "power"]
+	var i = 0
+	var gunStats : Array = []
+	while i < adressArray.size():
+		i += 1
+		gunStats.append(loadData(currentGun[1], adressArray[i-1]))
+	
+	return gunStats

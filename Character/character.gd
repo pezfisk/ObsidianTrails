@@ -16,6 +16,7 @@ var a = 0
 
 func _ready():
 	gunSelection = GunStates.getData()
+	shootDelayS = GunStates.getCurrentGunStats()[0]
 	print(gunSelection)
 
 func get_input():
@@ -41,7 +42,8 @@ func _physics_process(_delta):
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootTimer.is_stopped():
 		var b = Bullet.instantiate()
-		owner.add_child(b)
+		b.add_to_group("Bullets")
+		get_parent().add_child(b)
 		b.transform = $Muzzle.global_transform
 		b.scale.x = 0.255
 		b.scale.y = 0.045
@@ -52,11 +54,10 @@ func _physics_process(_delta):
 			a += 1
 		else:
 			a = 0
-		var Header = gunSelection[a]
-		print(Header)
-		shootDelayS = GunStates.loadData(Header, "shootDelay")
+		GunStates.selectGun(gunSelection[a])
+		shootDelayS = GunStates.getCurrentGunStats()[0]
 		shootTimer.stop()
-		
+
 	look_at(get_global_mouse_position())
 	
 	move_and_slide()
