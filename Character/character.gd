@@ -1,16 +1,20 @@
 extends CharacterBody2D
 
-@export var speed = 500
+@export var speed = 250
 @export var friction = 0.25
 @export var acceleration = 0.5
 @export var ogZoom = 1
-@export var shootDelayS = 0.1
 
 @export var Bullet : PackedScene
 
 @onready var shootTimer = $shootTimerDelay
 @onready var camera = $Camera2D
 
+
+# GUN LOGIC
+var shootDelayS : float = 0.1
+var spread : int
+var gunStats : Array = []
 var gunSelection : Array
 var a = 0
 
@@ -44,9 +48,11 @@ func _physics_process(_delta):
 		var b = Bullet.instantiate()
 		b.add_to_group("Bullets")
 		get_parent().add_child(b)
-		b.transform = $Muzzle.global_transform
-		b.scale.x = 0.255
-		b.scale.y = 0.045
+		b.global_position = $Muzzle.global_position
+		b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-GunStates.getCurrentGunStats()[3],GunStates.getCurrentGunStats()[3]))
+		#print(gunStats[0])
+		b.scale.x = 0.255 / 2
+		b.scale.y = 0.045 / 2
 		shootTimer.start(shootDelayS)
 		
 	if Input.is_action_just_pressed("CheckDB"):
@@ -55,9 +61,11 @@ func _physics_process(_delta):
 		else:
 			a = 0
 		GunStates.selectGun(gunSelection[a])
-		shootDelayS = GunStates.getCurrentGunStats()[0]
+		gunStats = GunStates.getCurrentGunStats()
+		print(gunStats)
+		shootDelayS = gunStats[0]
 		shootTimer.stop()
 
 	look_at(get_global_mouse_position())
-	
+
 	move_and_slide()

@@ -78,7 +78,7 @@ func selectGun(Header):
 
 func getCurrentGunStats():
 	var currentGun = getCurrentGun()
-	var adressArray = ["shootDelay", "power"]
+	var adressArray = ["shootDelay", "power", "speed", "spread"]
 	var i = 0
 	var gunStats : Array = []
 	while i < adressArray.size():

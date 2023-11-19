@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1nvnd3u2uf1h"]
+[gd_scene load_steps=7 format=3 uid="uid://c1nvnd3u2uf1h"]
 
 [ext_resource type="Script" path="res://Character/character.gd" id="1_r1i07"]
 [ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_ghuio"]
 [ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="2_ppdm7"]
+[ext_resource type="Texture2D" uid="uid://cpqgyargauhx7" path="res://Textures/flashlight.png" id="4_ehvxx"]
+[ext_resource type="Texture2D" uid="uid://bf1xmnxvekjrn" path="res://Textures/light.png" id="4_yfvxb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ec0tn"]
 radius = 55.0091
 
 [node name="Character" type="CharacterBody2D"]
+scale = Vector2(0.188, 0.188)
 floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("1_r1i07")
@@ -20,11 +23,30 @@ texture = ExtResource("2_ppdm7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ec0tn")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-
 [node name="Muzzle" type="Node2D" parent="."]
-position = Vector2(79.67, 0)
+position = Vector2(100, 0)
 
 [node name="shootTimerDelay" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 84000
+limit_bottom = 54000
+position_smoothing_enabled = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(0.19, 0.19)
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("4_ehvxx")
+offset = Vector2(5000, -200)
+texture_scale = 10.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = ExtResource("4_yfvxb")
+texture_scale = 50.0

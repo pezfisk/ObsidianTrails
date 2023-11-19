@@ -2,6 +2,9 @@ extends Area2D
 
 @export var speed = 2000
 
+func _ready():
+	speed = GunStates.getCurrentGunStats()[2]
+	
 func _physics_process(delta):
 	position += transform.x * speed * delta
 	
