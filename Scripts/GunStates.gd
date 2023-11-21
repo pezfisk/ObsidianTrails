@@ -1,7 +1,7 @@
 extends Node
 
 # Path to save file 
-var file= "res://GunConfig.cfg"
+var file= "res://Config/GunConfig.cfg"
 
 func getData():
 	var configFile = ConfigFile.new()
@@ -78,7 +78,7 @@ func selectGun(Header):
 
 func getCurrentGunStats():
 	var currentGun = getCurrentGun()
-	var adressArray = ["shootDelay", "power", "speed", "spread"]
+	var adressArray = ["shootDelay", "power", "speed", "spread", "pellet", "deviation"]
 	var i = 0
 	var gunStats : Array = []
 	while i < adressArray.size():

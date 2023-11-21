@@ -13,14 +13,18 @@ extends CharacterBody2D
 
 # GUN LOGIC
 var shootDelayS : float = 0.1
-var spread : int
+var spread : float
 var gunStats : Array = []
 var gunSelection : Array
 var a = 0
+var pellets : int
+var pelletC = 0
 
 func _ready():
 	gunSelection = GunStates.getData()
 	shootDelayS = GunStates.getCurrentGunStats()[0]
+	pellets = GunStates.getCurrentGunStats()[4]
+	spread = GunStates.getCurrentGunStats()[3]
 	print(gunSelection)
 
 func get_input():
@@ -45,15 +49,18 @@ func _physics_process(_delta):
 		velocity = velocity.lerp(Vector2(0,0), friction)
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootTimer.is_stopped():
-		var b = Bullet.instantiate()
-		b.add_to_group("Bullets")
-		get_parent().add_child(b)
-		b.global_position = $Muzzle.global_position
-		b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-GunStates.getCurrentGunStats()[3],GunStates.getCurrentGunStats()[3]))
-		#print(gunStats[0])
-		b.scale.x = 0.255 / 2
-		b.scale.y = 0.045 / 2
-		shootTimer.start(shootDelayS)
+		var pelletC = 0
+		while pelletC < pellets:
+			var b = Bullet.instantiate()
+			b.add_to_group("Bullets")
+			get_parent().add_child(b)
+			b.global_position = $Muzzle.global_position
+			b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-spread,spread))
+			#print(gunStats[0])
+			b.scale.x = 0.255 / 2
+			b.scale.y = 0.045 / 2
+			shootTimer.start(shootDelayS)
+			pelletC += 1
 		
 	if Input.is_action_just_pressed("CheckDB"):
 		if a < gunSelection.size() - 1:
@@ -64,6 +71,8 @@ func _physics_process(_delta):
 		gunStats = GunStates.getCurrentGunStats()
 		print(gunStats)
 		shootDelayS = gunStats[0]
+		pellets = gunStats[4]
+		spread = gunStats[3]
 		shootTimer.stop()
 
 	look_at(get_global_mouse_position())

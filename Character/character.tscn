@@ -15,27 +15,6 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("1_r1i07")
 Bullet = ExtResource("2_ghuio")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ppdm7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ec0tn")
-
-[node name="Muzzle" type="Node2D" parent="."]
-position = Vector2(100, 0)
-
-[node name="shootTimerDelay" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_top = 0
-limit_right = 84000
-limit_bottom = 54000
-position_smoothing_enabled = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
@@ -49,4 +28,26 @@ texture_scale = 10.0
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 shadow_enabled = true
 texture = ExtResource("4_yfvxb")
+offset = Vector2(173, 0)
 texture_scale = 50.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ppdm7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ec0tn")
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2(132.979, 0)
+
+[node name="shootTimerDelay" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.3, 1.3)
+limit_left = 0
+limit_top = 0
+limit_right = 84000
+limit_bottom = 54000
+position_smoothing_enabled = true

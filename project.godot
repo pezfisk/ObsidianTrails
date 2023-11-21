@@ -13,6 +13,7 @@ config_version=5
 config/name="Obsidian Trails"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+run/max_fps=690
 config/icon="res://icon.svg"
 
 [autoload]
@@ -20,12 +21,17 @@ config/icon="res://icon.svg"
 GunStates="*res://Scripts/GunStates.gd"
 GLOBALS="*res://Scripts/globals.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
+window/vsync/vsync_mode=0
 
 [input]
 
@@ -55,6 +61,6 @@ CheckDB={
 ]
 }
 
-[rendering]
+[physics]
 
-driver/threads/thread_model=2
+2d/run_on_separate_thread=true
