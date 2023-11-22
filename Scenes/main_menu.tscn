@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bplr7w4im82bp"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_vijy2"]
+[ext_resource type="PackedScene" uid="uid://c1nvnd3u2uf1h" path="res://Character/character.tscn" id="2_udoyu"]
+
+[node name="main_menu" type="Node2D"]
+script = ExtResource("1_vijy2")
+player_scene = ExtResource("2_udoyu")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1000, 500)
+
+[node name="Host" type="Button" parent="."]
+offset_left = 881.0
+offset_top = 246.0
+offset_right = 1107.0
+offset_bottom = 331.0
+size_flags_horizontal = 4
+text = "HOST"
+
+[node name="Join" type="Button" parent="."]
+offset_left = 889.0
+offset_top = 354.0
+offset_right = 1115.0
+offset_bottom = 439.0
+size_flags_horizontal = 4
+text = "JOIN
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Character/character.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]

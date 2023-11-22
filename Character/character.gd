@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 @onready var shootTimer = $shootTimerDelay
 @onready var camera = $Camera2D
-
+var eDelta = 0
 
 # GUN LOGIC
 var shootDelayS : float = 0.1
@@ -41,40 +41,51 @@ func get_input():
 		#camera.zoom = Vector2(1,1)
 	return input
 
-func _physics_process(_delta):
-	var direction = get_input()
-	if direction.length() > 0:
-		velocity = velocity.lerp(direction.normalized() * speed, acceleration)
-	else:
-		velocity = velocity.lerp(Vector2(0,0), friction)
-	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootTimer.is_stopped():
-		var pelletC = 0
-		while pelletC < pellets:
-			var b = Bullet.instantiate()
-			b.add_to_group("Bullets")
-			get_parent().add_child(b)
-			b.global_position = $Muzzle.global_position
-			b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-spread,spread))
-			#print(gunStats[0])
-			b.scale.x = 0.255 / 2
-			b.scale.y = 0.045 / 2
-			shootTimer.start(shootDelayS)
-			pelletC += 1
-		
-	if Input.is_action_just_pressed("CheckDB"):
-		if a < gunSelection.size() - 1:
-			a += 1
+func _physics_process(delta):
+	eDelta = delta
+	if is_multiplayer_authority():
+		var direction = get_input()
+		if direction.length() > 0:
+			velocity = velocity.lerp(direction.normalized() * speed, acceleration)
 		else:
-			a = 0
-		GunStates.selectGun(gunSelection[a])
-		gunStats = GunStates.getCurrentGunStats()
-		print(gunStats)
-		shootDelayS = gunStats[0]
-		pellets = gunStats[4]
-		spread = gunStats[3]
-		shootTimer.stop()
+			velocity = velocity.lerp(Vector2(0,0), friction)
+		
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && shootTimer.is_stopped():
+			var pelletC = 0
+			while pelletC < pellets:
+				var b = Bullet.instantiate()
+				b.add_to_group("Bullets")
+				get_parent().add_child(b)
+				b.global_position = $Muzzle.global_position
+				b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-spread,spread))
+				#print(gunStats[0])
+				b.scale.x = 0.255 / 2
+				b.scale.y = 0.045 / 2
+				shootTimer.start(shootDelayS)
+				pelletC += 1
+			
+		if Input.is_action_just_pressed("CheckDB"):
+			if a < gunSelection.size() - 1:
+				a += 1
+			else:
+				a = 0
+			GunStates.selectGun(gunSelection[a])
+			gunStats = GunStates.getCurrentGunStats()
+			print(gunStats)
+			shootDelayS = gunStats[0]
+			pellets = gunStats[4]
+			spread = gunStats[3]
+			shootTimer.stop()
 
-	look_at(get_global_mouse_position())
+		look_at(get_global_mouse_position())
 
 	move_and_slide()
+
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	$Camera2D.enabled = is_multiplayer_authority()
+
+@rpc("unreliable", "any_peer", "call_local") func updatePos(id, pos):
+	if !is_multiplayer_authority():
+		if name == id:
+			position = lerp(position, pos, eDelta * 15)
