@@ -8,8 +8,10 @@ extends CharacterBody2D
 @export var Bullet : PackedScene
 
 @onready var shootTimer = $shootTimerDelay
+@onready var spawnTimer = $spawnTimer
 @onready var camera = $Camera2D
-
+@onready var Area2d = $Area2D
+var badSpawn = false
 
 # GUN LOGIC
 var shootDelayS : float = 0.1
@@ -78,3 +80,14 @@ func _physics_process(_delta):
 	look_at(get_global_mouse_position())
 
 	move_and_slide()
+
+func _on_spawn_timer_timeout():
+	if badSpawn:
+		get_tree().reload_current_scene()
+		badSpawn = false
+	else:
+		camera.enabled = true
+
+func _on_area_2d_body_entered(body):
+	if not spawnTimer.is_stopped():
+		badSpawn = true

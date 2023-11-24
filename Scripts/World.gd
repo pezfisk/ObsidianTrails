@@ -38,3 +38,7 @@ func reload_level():
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		reload_level()
+
+func _on_spawn_timer_timeout():
+	$Camera2D.enabled = false
+	

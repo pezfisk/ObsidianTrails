@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://3jjnhrcyu032"]
+[gd_scene load_steps=8 format=3 uid="uid://3jjnhrcyu032"]
 
 [ext_resource type="PackedScene" uid="uid://c1nvnd3u2uf1h" path="res://Character/character.tscn" id="1_j1qq6"]
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_ufxnj"]
 [ext_resource type="PackedScene" uid="uid://bi3ru8a46chxo" path="res://Scenes/ExitDoor.tscn" id="3_lyito"]
 [ext_resource type="Texture2D" uid="uid://d4mnkmo08n8ir" path="res://background.png" id="4_6kesh"]
 [ext_resource type="PackedScene" uid="uid://dgop735mrxgey" path="res://Scenes/Tilemap.tscn" id="4_fqter"]
+[ext_resource type="PackedScene" uid="uid://cvngj3cdn7pn4" path="res://Scenes/EnemySpawner.tscn" id="6_tywhb"]
 
 [sub_resource type="Environment" id="Environment_ed5k5"]
 background_mode = 1
@@ -33,5 +34,13 @@ color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(4250, 2700)
-enabled = false
-zoom = Vector2(0.12, 0.12)
+zoom = Vector2(0.185, 0.185)
+
+[node name="spawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="EnemySpawner" parent="." instance=ExtResource("6_tywhb")]
+
+[connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]
