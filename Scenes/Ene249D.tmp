@@ -32,8 +32,6 @@ autostart = true
 
 [node name="shootTimer" type="Timer" parent="."]
 
-[node name="RandomShootingDelay" type="Timer" parent="."]
-
 [node name="Muzzle" type="Node2D" parent="."]
 position = Vector2(25, 0)
 

@@ -44,6 +44,9 @@ func get_input():
 	return input
 
 func _physics_process(_delta):
+	
+	GLOBALS.playerPos = position
+	
 	var direction = get_input()
 	if direction.length() > 0:
 		velocity = velocity.lerp(direction.normalized() * speed, acceleration)

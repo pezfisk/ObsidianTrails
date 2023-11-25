@@ -63,7 +63,7 @@ func getCurrentGun():
 		if loadData(guns[i-1], "selected"):
 			return [i-1, guns[i-1]]
 
-func selectGun(Header):
+func selectGun(Header : String):
 	
 	var configFile = ConfigFile.new()
 	
