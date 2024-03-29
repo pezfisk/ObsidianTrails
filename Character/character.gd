@@ -21,12 +21,15 @@ var gunSelection : Array
 var a = 0
 var pellets : int
 var pelletC = 0
+var knockback : float = 0
 
 func _ready():
 	gunSelection = GunStates.getData()
-	shootDelayS = GunStates.getCurrentGunStats()[0]
-	pellets = GunStates.getCurrentGunStats()[4]
-	spread = GunStates.getCurrentGunStats()[3]
+	gunStats = GunStates.getCurrentGunStats()
+	shootDelayS = gunStats[0]
+	pellets = gunStats[4]
+	spread = gunStats[3]
+	knockback = gunStats[6]
 	print(gunSelection)
 
 func get_input():
@@ -66,6 +69,7 @@ func _physics_process(_delta):
 			b.scale.y = 0.045 / 2
 			shootTimer.start(shootDelayS)
 			pelletC += 1
+			add_force(knockback)
 		
 	if Input.is_action_just_pressed("CheckDB"):
 		if a < gunSelection.size() - 1:
@@ -76,8 +80,9 @@ func _physics_process(_delta):
 		gunStats = GunStates.getCurrentGunStats()
 		print(gunStats)
 		shootDelayS = gunStats[0]
-		pellets = gunStats[4]
 		spread = gunStats[3]
+		pellets = gunStats[4]
+		knockback = gunStats[6]
 		shootTimer.stop()
 
 	look_at(get_global_mouse_position())
@@ -91,6 +96,10 @@ func _on_spawn_timer_timeout():
 	else:
 		camera.enabled = true
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(_body):
 	if not spawnTimer.is_stopped():
 		badSpawn = true
+
+func add_force(force : float):
+	var direction = self.rotation
+	velocity = velocity.lerp(Vector2(cos(direction), sin(direction)) * -force, 0.2)

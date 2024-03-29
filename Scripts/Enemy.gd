@@ -21,12 +21,13 @@ func _ready():
 	collision.disabled = true
 	GunStates.selectGun("Rifle")
 	gunSelection = GunStates.getData()
-	shootDelayS = GunStates.getCurrentGunStats()[0]
-	pellets = GunStates.getCurrentGunStats()[4]
-	spread = GunStates.getCurrentGunStats()[3]
+	var currentGun = GunStates.getGunStats("Rifle")
+	shootDelayS = 1 #currentGun[0]
+	pellets = 1 #currentGun[4]
+	spread = 0 #currentGun[3]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	look_at(GLOBALS.playerPos)
 	randomShootingDelay.start(randi_range(1,5))

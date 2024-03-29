@@ -44,7 +44,6 @@ texture = ExtResource("1_xsot1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6.8297e-06, -5.18301e-06)
 rotation = 1.5708
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_qm5q4")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
@@ -61,5 +60,9 @@ trail_lifetime = 9.6
 visible = false
 occluder = SubResource("OccluderPolygon2D_yffgp")
 
+[node name="deSpawnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_screen_exited"]
+[connection signal="timeout" from="deSpawnTimer" to="." method="_on_de_spawn_timer_timeout"]

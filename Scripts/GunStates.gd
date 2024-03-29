@@ -1,7 +1,21 @@
 extends Node
+## A brief description of the class's role and functionality.
+##
+## The description of the script, what it can do,
+## and any further detail.
+##
+## @experimental
+
+class_name GunScript
 
 # Path to save file 
 var file= "res://Config/GunConfig.cfg"
+
+# GLOBAL VARIABLES
+var adressArray = ["shootDelay", "power", "speed", "spread", "pellet", "deviation", "knockback"]
+var speed = 0
+var deviation = 0
+var damage = 0
 
 func getData():
 	var configFile = ConfigFile.new()
@@ -76,13 +90,22 @@ func selectGun(Header : String):
 	# Save file 
 	configFile.save(file)
 
-func getCurrentGunStats():
+func getCurrentGunStats(fromSelectGun : bool = false):
 	var currentGun = getCurrentGun()
-	var adressArray = ["shootDelay", "power", "speed", "spread", "pellet", "deviation"]
 	var i = 0
 	var gunStats : Array = []
 	while i < adressArray.size():
 		i += 1
 		gunStats.append(loadData(currentGun[1], adressArray[i-1]))
+	
+	return gunStats
+
+# I dont understand why this doesnt fucking work
+func getGunStats(gun : String):
+	var i = 0
+	var gunStats : Array = []
+	while i < adressArray.size():
+		i += 1
+		gunStats.append(loadData(gun, adressArray[i-1]))
 	
 	return gunStats

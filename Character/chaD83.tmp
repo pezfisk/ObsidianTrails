@@ -26,7 +26,6 @@ offset = Vector2(5000, -200)
 texture_scale = 10.0
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
-color = Color(0, 0.992157, 0.992157, 1)
 shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_yfvxb")
