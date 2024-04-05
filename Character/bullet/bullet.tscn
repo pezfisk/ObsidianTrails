@@ -21,7 +21,7 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.0
 scale_max = 4.0
 scale_curve = SubResource("CurveTexture_1olmp")
-color = Color(0.686275, 0.435294, 0.752941, 1)
+color = Color(6.96, 4.35, 7.53, 1)
 turbulence_noise_strength = 20.0
 turbulence_noise_scale = 10.0
 turbulence_noise_speed = Vector3(77.44, 0, 0)
@@ -39,6 +39,8 @@ script = ExtResource("1_63m5i")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(10, 10, 10, 1)
+self_modulate = Color(1, 0, 1, 1)
 texture = ExtResource("1_xsot1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

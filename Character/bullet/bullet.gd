@@ -27,7 +27,6 @@ func _on_screen_exited():
 func _on_body_entered(body):
 	hit = true
 	if body.is_in_group("enemy"):
-		print("Enemy hit!")
 		body.takeDamage(power)
 		
 	sprite.visible = false

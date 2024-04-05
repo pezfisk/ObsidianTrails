@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd526d4qm1lqa"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_nj3rd"]
-[ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="1_ui4f6"]
 [ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_t631x"]
 [ext_resource type="PackedScene" uid="uid://c1nvnd3u2uf1h" path="res://Character/character.tscn" id="3_4nhmu"]
+[ext_resource type="Texture2D" uid="uid://cehliloy3lsvb" path="res://Textures/triangle.png" id="4_si1na"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pgns7"]
 radius = 85.76
@@ -16,9 +16,11 @@ script = ExtResource("1_nj3rd")
 Bullet = ExtResource("2_t631x")
 player = ExtResource("3_4nhmu")
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.188, 0.188)
-texture = ExtResource("1_ui4f6")
+[node name="Triangle" type="Sprite2D" parent="."]
+modulate = Color(4, 4, 4, 1)
+rotation = 1.57079
+scale = Vector2(0.175, 0.175)
+texture = ExtResource("4_si1na")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.52588e-05, 0)

@@ -7,7 +7,6 @@ var i = 0
 # Called when the node enters the scene tree for the first time.
 func _process(_delta):
 	while i <= numberEnemies:
-		print(i)
 		i += 1
 		var e = Enemy.instantiate()
 		e.add_to_group("enemy")

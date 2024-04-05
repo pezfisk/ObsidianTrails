@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4p1nbkqf64ey"]
+
+[ext_resource type="PackedScene" uid="uid://c1nvnd3u2uf1h" path="res://Character/character.tscn" id="1_8gtu3"]
+[ext_resource type="Texture2D" uid="uid://d4mnkmo08n8ir" path="res://background.png" id="2_vlitm"]
+
+[sub_resource type="Environment" id="Environment_1fcs0"]
+background_mode = 3
+reflected_light_source = 1
+glow_enabled = true
+glow_intensity = 8.0
+glow_bloom = 0.1
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1fcs0")
+
+[node name="Character" parent="." instance=ExtResource("1_8gtu3")]
+position = Vector2(793, 476)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -128
+position = Vector2(708.4, 426.4)
+scale = Vector2(16.7437, 12.1906)
+texture = ExtResource("2_vlitm")
+metadata/_edit_lock_ = true

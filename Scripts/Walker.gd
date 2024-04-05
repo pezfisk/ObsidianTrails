@@ -18,6 +18,7 @@ func _init(starting_position, new_borders):
 
 func walk(steps):
 	place_room(position)
+	@warning_ignore("shadowed_variable")
 	for step in steps:
 		if steps_since_turn >= 12:
 			change_direction()
@@ -47,9 +48,11 @@ func change_direction():
 	while not borders.has_point(position + direction):
 		direction = directions.pop_front()
 
+@warning_ignore("shadowed_variable")
 func create_room(position, size):
 	return {position = position, size = size}
 
+@warning_ignore("shadowed_variable")
 func place_room(position):
 	var size = Vector2(randi() % 10 + 2, randi() % 10 + 2)
 	var top_left_corner = (position - size/2).ceil()

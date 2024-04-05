@@ -1,13 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1nvnd3u2uf1h"]
+[gd_scene load_steps=11 format=3 uid="uid://c1nvnd3u2uf1h"]
 
 [ext_resource type="Script" path="res://Character/character.gd" id="1_r1i07"]
 [ext_resource type="PackedScene" uid="uid://5bm853mty8b0" path="res://Character/bullet/bullet.tscn" id="2_ghuio"]
-[ext_resource type="Texture2D" uid="uid://dje8852wumobj" path="res://icon.svg" id="2_ppdm7"]
+[ext_resource type="Texture2D" uid="uid://cehliloy3lsvb" path="res://Textures/triangle.png" id="3_l5tkb"]
 [ext_resource type="Texture2D" uid="uid://cpqgyargauhx7" path="res://Textures/flashlight.png" id="4_ehvxx"]
 [ext_resource type="Texture2D" uid="uid://bf1xmnxvekjrn" path="res://Textures/light.png" id="4_yfvxb"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="6_d3q5b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ec0tn"]
 radius = 55.0091
+
+[sub_resource type="Curve" id="Curve_yvycq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_caq3e"]
+curve = SubResource("Curve_yvycq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ee511"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 24.0
+scale_max = 24.0
+scale_curve = SubResource("CurveTexture_caq3e")
 
 [node name="Character" type="CharacterBody2D"]
 scale = Vector2(0.188, 0.188)
@@ -15,6 +30,14 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("1_r1i07")
 Bullet = ExtResource("2_ghuio")
+
+[node name="Triangle" type="Sprite2D" parent="."]
+modulate = Color(4, 4, 4, 1)
+self_modulate = Color(1, 0, 1, 1)
+position = Vector2(2.38419e-07, 0)
+rotation = 1.57079
+scale = Vector2(0.935672, 0.935672)
+texture = ExtResource("3_l5tkb")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
@@ -26,15 +49,13 @@ offset = Vector2(5000, -200)
 texture_scale = 10.0
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
-color = Color(0, 0.992157, 0.992157, 1)
+position = Vector2(-4.76837e-07, 0)
+energy = 0.3
 shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("4_yfvxb")
 offset = Vector2(173, 0)
 texture_scale = 50.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ppdm7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ec0tn")
@@ -65,6 +86,40 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(122.34, 0)
 shape = SubResource("CircleShape2D_ec0tn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 10223.0
+offset_bottom = 5819.0
+
+[node name="Test" type="Node2D" parent="Control"]
+
+[node name="UI_MOBILE" type="CanvasLayer" parent="Control/Test"]
+visible = false
+
+[node name="Virtual joystick left" parent="Control/Test/UI_MOBILE" instance=ExtResource("6_d3q5b")]
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="Virtual joystick right" parent="Control/Test/UI_MOBILE" instance=ExtResource("6_d3q5b")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+use_input_actions = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+z_index = -1
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_ee511")
 
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

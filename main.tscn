@@ -8,11 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://cvngj3cdn7pn4" path="res://Scenes/EnemySpawner.tscn" id="6_tywhb"]
 
 [sub_resource type="Environment" id="Environment_ed5k5"]
-background_mode = 1
+background_mode = 3
 reflected_light_source = 1
 glow_enabled = true
-glow_intensity = 8.0
-glow_bloom = 1.0
+glow_intensity = 1.55
+glow_strength = 1.75
+glow_bloom = 0.1
+glow_blend_mode = 0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_ufxnj")
@@ -20,8 +22,9 @@ Player = ExtResource("1_j1qq6")
 Exit = ExtResource("3_lyito")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(4300, 2800)
-scale = Vector2(89.0625, 64.8438)
+z_index = -128
+position = Vector2(4300, 2825)
+scale = Vector2(270.313, 212.109)
 texture = ExtResource("4_6kesh")
 
 [node name="Tilemap" parent="." instance=ExtResource("4_fqter")]
