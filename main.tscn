@@ -47,6 +47,14 @@ wait_time = 0.5
 one_shot = true
 autostart = true
 
-[node name="EnemySpawner" parent="." instance=ExtResource("6_tywhb")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("point1", "point2") instance=ExtResource("6_tywhb")]
+point1 = NodePath("p1")
+point2 = NodePath("p2")
+
+[node name="p1" type="Node2D" parent="EnemySpawner"]
+position = Vector2(50, 50)
+
+[node name="p2" type="Node2D" parent="EnemySpawner"]
+position = Vector2(8400, 5400)
 
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]

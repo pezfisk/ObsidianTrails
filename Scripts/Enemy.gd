@@ -33,21 +33,21 @@ func _physics_process(_delta):
 	look_at(GLOBALS.playerPos)
 	randomShootingDelay.start(randi_range(1,5))
 	
-	if !randomShootingDelay.is_stopped() && shootTimer.is_stopped():
-		@warning_ignore("shadowed_variable")
-		var pelletC = 0
-		while pelletC < pellets:
-			var b = Bullet.instantiate()
-			b.add_to_group("Bullets")
-			get_parent().add_child(b)
-			b.global_position = $Muzzle.global_position
-			@warning_ignore("narrowing_conversion")
-			b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-spread,spread))
-			b.scale.x = 0.255 / 2
-			b.scale.y = 0.045 / 2
-			shootTimer.start(shootDelayS)
-			pelletC += 1
-			randomShootingDelay.start(randi_range(1,5))
+	#if !randomShootingDelay.is_stopped() && shootTimer.is_stopped():
+		#@warning_ignore("shadowed_variable")
+		#var pelletC = 0
+		#while pelletC < pellets:
+			#var b = Bullet.instantiate()
+			#b.add_to_group("Bullets")
+			#get_parent().add_child(b)
+			#b.global_position = $Muzzle.global_position
+			#@warning_ignore("narrowing_conversion")
+			#b.global_rotation = $Muzzle.global_rotation + deg_to_rad(randi_range(-spread,spread))
+			#b.scale.x = 0.255 / 2
+			#b.scale.y = 0.045 / 2
+			#shootTimer.start(shootDelayS)
+			#pelletC += 1
+			#randomShootingDelay.start(randi_range(1,5))
 
 func takeDamage(power):
 	health -= power
