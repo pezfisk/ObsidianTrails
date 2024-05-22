@@ -14,6 +14,8 @@ config/name="Obsidian Trails"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=190
+boot_splash/image="res://Textures/GodotSplash.png"
+boot_splash/fullsize=false
 config/icon="res://icon.svg"
 
 [autoload]
